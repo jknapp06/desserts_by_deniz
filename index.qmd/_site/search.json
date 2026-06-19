@@ -1,0 +1,58 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "Welcome to Desserts by Deniz! Fill out the form below to place an order. Deniz will review and respond to confirm availability.\n\n\n\n\n\n\nNote\n\n\n\nNote: All orders are subject to Deniz’s availability. Prices are estimates and may vary based on custom requests.\n\n\n\n\n – Select – Celebration (Cakes, Cupcakes) I need something to bring (Cookies, Treats) Just Because (Muffins, Scones) \n\n\n\n\n – Select Occasion First – \n\n\n\n\n\n – Select Category First – \n\n\n\n\n\n\n\n\n\nTotal: $0.00\n\n\n\n\n\n\n  \nName:  \nEmail:  \nPhone:  \nSpecial Instructions:\n\n\n\nSubmit Order\n\n\n\n\n\nAdd this to a new file assets/script.js (or in a &lt;script&gt; tag in index.qmd):\n``javascript fetch(https://docs.google.com/spreadsheets/d/10Lz86fUeqTrgBTdrjOa02zzM96G6_KhUVhZBbnuu940)   .then(response =&gt; response.json())   .then(data =&gt; {     // Parse data into themenu` object });\n// Update categories based on occasion function updateCategories() { const occasion = document.getElementById(“occasion”).value; const categorySelect = document.getElementById(“category”); categorySelect.innerHTML = ‘– Select Category –’; categorySelect.disabled = !occasion;\nif (occasion) { Object.keys(menu[occasion]).forEach(category =&gt; { const option = document.createElement(“option”); option.value = category; option.textContent = category; categorySelect.appendChild(option); }); } }\n// Update items based on category function updateItems() { const occasion = document.getElementById(“occasion”).value; const category = document.getElementById(“category”).value; const itemSelect = document.getElementById(“item”); itemSelect.innerHTML = ‘– Select Item –’; itemSelect.disabled = !category;\nif (category) { menu[occasion][category].forEach(item =&gt; { const option = document.createElement(“option”); option.value = item.name; option.textContent = ${item.name} ($${item.total.toFixed(2)}); itemSelect.appendChild(option); }); } }\n// Update details (size, flavors, etc.) and calculate total function updateDetails() { const occasion = document.getElementById(“occasion”).value; const category = document.getElementById(“category”).value; const itemName = document.getElementById(“item”).value; const detailsContainer = document.getElementById(“details-container”); const orderSummary = document.getElementById(“order-summary”);\nif (!itemName) { detailsContainer.innerHTML = ““; orderSummary.innerHTML = ’\n\nTotal: $0.00\n\n’; return; }\n// Find the selected item const item = menu[occasion][category].find(i =&gt; i.name === itemName); detailsContainer.innerHTML = `\n\n&lt;p&gt;\\${item.description || \"Customize your order below:\"}&lt;/p&gt;\n\n&lt;!-- Size dropdown (example) --&gt;\n&lt;label&gt;Size:\n  &lt;select id=\"size\"&gt;\n    &lt;option value=\"Standard\"&gt;Standard&lt;/option&gt;\n    &lt;option value=\"Large\"&gt;Large (+\\$10)&lt;/option&gt;\n  &lt;/select&gt;\n&lt;/label&gt;\n\n&lt;!-- Buttercream flavor (example) --&gt;\n&lt;label&gt;Buttercream Flavor:\n  &lt;select id=\"buttercream\"&gt;\n    &lt;option value=\"Vanilla\"&gt;Vanilla&lt;/option&gt;\n    &lt;option value=\"Chocolate\"&gt;Chocolate&lt;/option&gt;\n    &lt;option value=\"Strawberry\"&gt;Strawberry&lt;/option&gt;\n  &lt;/select&gt;\n&lt;/label&gt;\n\n&lt;!-- Message field --&gt;\n&lt;label&gt;Custom Message:\n  &lt;input type=\"text\" id=\"message\" placeholder=\"e.g., 'Happy Birthday!'\"&gt;\n&lt;/label&gt;\n`;\n// Calculate total price (base + adjustments) const basePrice = item.total; let totalPrice = basePrice;\n// Example: Add $10 for “Large” size document.getElementById(“size”).addEventListener(“change”, (e) =&gt; { totalPrice = e.target.value === “Large” ? basePrice + 10 : basePrice; document.getElementById(“total-price”).textContent = totalPrice.toFixed(2); });\n// Update total price display document.getElementById(“total-price”).textContent = totalPrice.toFixed(2); }"
+  },
+  {
+    "objectID": "index.html#step-1-choose-an-occasion",
+    "href": "index.html#step-1-choose-an-occasion",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "– Select – Celebration (Cakes, Cupcakes) I need something to bring (Cookies, Treats) Just Because (Muffins, Scones)"
+  },
+  {
+    "objectID": "index.html#step-2-select-your-item",
+    "href": "index.html#step-2-select-your-item",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "– Select Occasion First –"
+  },
+  {
+    "objectID": "index.html#step-3-customize-your-order",
+    "href": "index.html#step-3-customize-your-order",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "– Select Category First –"
+  },
+  {
+    "objectID": "index.html#order-summary",
+    "href": "index.html#order-summary",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "Total: $0.00"
+  },
+  {
+    "objectID": "index.html#your-information",
+    "href": "index.html#your-information",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "Name:  \nEmail:  \nPhone:  \nSpecial Instructions:\n\n\n\nSubmit Order\n\n\n\n\n\nAdd this to a new file assets/script.js (or in a &lt;script&gt; tag in index.qmd):\n``javascript fetch(https://docs.google.com/spreadsheets/d/10Lz86fUeqTrgBTdrjOa02zzM96G6_KhUVhZBbnuu940)   .then(response =&gt; response.json())   .then(data =&gt; {     // Parse data into themenu` object });\n// Update categories based on occasion function updateCategories() { const occasion = document.getElementById(“occasion”).value; const categorySelect = document.getElementById(“category”); categorySelect.innerHTML = ‘– Select Category –’; categorySelect.disabled = !occasion;\nif (occasion) { Object.keys(menu[occasion]).forEach(category =&gt; { const option = document.createElement(“option”); option.value = category; option.textContent = category; categorySelect.appendChild(option); }); } }\n// Update items based on category function updateItems() { const occasion = document.getElementById(“occasion”).value; const category = document.getElementById(“category”).value; const itemSelect = document.getElementById(“item”); itemSelect.innerHTML = ‘– Select Item –’; itemSelect.disabled = !category;\nif (category) { menu[occasion][category].forEach(item =&gt; { const option = document.createElement(“option”); option.value = item.name; option.textContent = ${item.name} ($${item.total.toFixed(2)}); itemSelect.appendChild(option); }); } }\n// Update details (size, flavors, etc.) and calculate total function updateDetails() { const occasion = document.getElementById(“occasion”).value; const category = document.getElementById(“category”).value; const itemName = document.getElementById(“item”).value; const detailsContainer = document.getElementById(“details-container”); const orderSummary = document.getElementById(“order-summary”);\nif (!itemName) { detailsContainer.innerHTML = ““; orderSummary.innerHTML = ’\n\nTotal: $0.00\n\n’; return; }\n// Find the selected item const item = menu[occasion][category].find(i =&gt; i.name === itemName); detailsContainer.innerHTML = `\n\n&lt;p&gt;\\${item.description || \"Customize your order below:\"}&lt;/p&gt;\n\n&lt;!-- Size dropdown (example) --&gt;\n&lt;label&gt;Size:\n  &lt;select id=\"size\"&gt;\n    &lt;option value=\"Standard\"&gt;Standard&lt;/option&gt;\n    &lt;option value=\"Large\"&gt;Large (+\\$10)&lt;/option&gt;\n  &lt;/select&gt;\n&lt;/label&gt;\n\n&lt;!-- Buttercream flavor (example) --&gt;\n&lt;label&gt;Buttercream Flavor:\n  &lt;select id=\"buttercream\"&gt;\n    &lt;option value=\"Vanilla\"&gt;Vanilla&lt;/option&gt;\n    &lt;option value=\"Chocolate\"&gt;Chocolate&lt;/option&gt;\n    &lt;option value=\"Strawberry\"&gt;Strawberry&lt;/option&gt;\n  &lt;/select&gt;\n&lt;/label&gt;\n\n&lt;!-- Message field --&gt;\n&lt;label&gt;Custom Message:\n  &lt;input type=\"text\" id=\"message\" placeholder=\"e.g., 'Happy Birthday!'\"&gt;\n&lt;/label&gt;\n`;\n// Calculate total price (base + adjustments) const basePrice = item.total; let totalPrice = basePrice;\n// Example: Add $10 for “Large” size document.getElementById(“size”).addEventListener(“change”, (e) =&gt; { totalPrice = e.target.value === “Large” ? basePrice + 10 : basePrice; document.getElementById(“total-price”).textContent = totalPrice.toFixed(2); });\n// Update total price display document.getElementById(“total-price”).textContent = totalPrice.toFixed(2); }"
+  },
+  {
+    "objectID": "thanks.html",
+    "href": "thanks.html",
+    "title": "Desserts by Deniz",
+    "section": "",
+    "text": "Thanks for submitting an order! Deniz will reply to you soon. In the meantime, be sure to follow her on instagram!"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  }
+]

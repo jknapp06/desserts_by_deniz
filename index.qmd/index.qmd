@@ -1,0 +1,34 @@
+// Update categories based on occasion
+function updateCategories() {
+  const occasion = document.getElementById("occasion").value;
+  const categorySelect = document.getElementById("category");
+  categorySelect.innerHTML = '<option value="">-- Select Category --</option>';
+  categorySelect.disabled = !occasion;
+
+  if (occasion && menu[occasion]) {
+    Object.keys(menu[occasion]).forEach(category => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      categorySelect.appendChild(option);
+    });
+  }
+}
+
+// Update items based on category
+function updateItems() {
+  const occasion = document.getElementById("occasion").value;
+  const category = document.getElementById("category").value;
+  const itemSelect = document.getElementById("item");
+  itemSelect.innerHTML = '<option value="">-- Select Item --</option>';
+  itemSelect.disabled = !category;
+
+  if (category && menu[occasion]?.[category]) {
+    menu[occasion][category].forEach(item => {
+      const option = document.createElement("option");
+      option.value = item.name;
+      option.textContent = `${item.name} ($${item.total.toFixed(2)})`;
+      itemSelect.appendChild(option);
+    });
+  }
+}

@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Desserts by Deniz"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Order
+      - href: about.qmd
+        text: About
+    right:
+      - icon: instagram
+        href: https://instagram.com/deniz.bakes
+        aria-label: Instagram
+
+format:
+  html:
+    theme: cosmo
+    css: assets/styles.css
+    toc: true
