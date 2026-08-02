@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Paprika&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #D8A47F;
+            --bg-color: #DDDDDD;
             --title-color: #DF3B57;
             --heading-color: #EE4B6A;
             --accent-color: #0F7173;
@@ -286,8 +286,10 @@
         // Load menu data from Google Sheets
         async function loadMenuData() {
             try {
+                // Use the environment variable from Netlify
+                const apiKey = window.DESSERTS_SHEET_API;
+
                 const sheetId = "10Lz86fUeqTrgBTdrjOa02zzM96G6_KhUVhZBbnuu940";
-                const apiKey = "YOUR_API_KEY"; // Replace with your actual API key
 
                 const response = await fetch(
                     `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`
