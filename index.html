@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desserts by Deniz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Paprika&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #D8A47F;
+            --title-color: #DF3B57;
+            --heading-color: #EE4B6A;
+            --accent-color: #0F7173;
+            --other-accent: #EF8354;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        h1 {
+            font-family: 'Paprika', cursive;
+            color: var(--title-color);
+            font-size: 3.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tagline {
+            font-style: italic;
+            color: var(--heading-color);
+            margin-top: 10px;
+            font-size: 1.2rem;
+        }
+
+        .menu-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .menu-section h2 {
+            color: var(--heading-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .menu-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .menu-table th {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .menu-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .occasion-header {
+            background-color: var(--other-accent) !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .carousel-inner {
+            position: relative;
+        }
+
+        .carousel-item {
+            display: none;
+            width: 100%;
+        }
+
+        .carousel-item.active {
+            display: block;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-control:hover {
+            background: rgba(0,0,0,0.8);
+        }
+
+        .carousel-control.prev {
+            left: 15px;
+        }
+
+        .carousel-control.next {
+            right: 15px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            display: flex;
+            gap: 10px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            background-color: white;
+        }
+
+        .contact-section {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .contact-btn:hover {
+            background-color: #0c5a5c;
+        }
+
+        .instagram-link {
+            display: block;
+            margin-top: 15px;
+            color: var(--heading-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .instagram-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .carousel-control {
+                width: 40px;
+                height: 40px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Desserts by Deniz</h1>
+        <p class="tagline">Handcrafted sweets made with love</p>
+    </header>
+
+    <main>
+        <section class="menu-section">
+            <h2>Our Menu</h2>
+            <div id="menu-table">
+                <!-- Menu will be loaded here from Google Sheets -->
+                <p style="text-align: center; color: var(--heading-color);">Loading menu...</p>
+            </div>
+        </section>
+
+        <section class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Chocolate cake with berries">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Assorted cookies">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1072&q=80" alt="Cupcakes with flowers">
+                    </div>
+                </div>
+                <button class="carousel-control prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-control next" onclick="changeSlide(1)">❯</button>
+                <div class="carousel-indicators" id="carousel-indicators">
+                    <!-- Indicators will be added by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <p>Ready to order? Message Deniz directly on Instagram!</p>
+            <a href="https://instagram.com/deniz.bakes" class="contact-btn" target="_blank">DM on Instagram</a>
+            <a href="https://instagram.com/deniz.bakes" class="instagram-link" target="_blank">@deniz.bakes</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 Desserts by Deniz | Custom orders welcome!</p>
+    </footer>
+
+    <script>
+        // Load menu data from Google Sheets
+        async function loadMenuData() {
+            try {
+                const sheetId = "10Lz86fUeqTrgBTdrjOa02zzM96G6_KhUVhZBbnuu940";
+                const apiKey = "YOUR_API_KEY"; // Replace with your actual API key
+
+                const response = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`
+                );
+
+                if (!response.ok) throw new Error("Failed to fetch sheet data");
+
+                const data = await response.json();
+                const rows = data.values;
+
+                // Skip header row
+                const menuData = rows.slice(1).map(row => {
+                    const [
+                        occasion,
+                        category,
+                        item,
+                        description,
+                        size,
+                        baseCost,
+                        laborHours,
+                        hourlyRate,
+                        totalPrice,
+                        notes
+                    ] = row;
+
+                    return {
+                        occasion,
+                        category,
+                        item: `${item} (${size})`,
+                        description,
+                        baseCost: parseFloat(baseCost),
+                        laborHours: parseFloat(laborHours),
+                        hourlyRate: parseFloat(hourlyRate),
+                        totalPrice: parseFloat(totalPrice),
+                        notes
+                    };
+                });
+
+                // Group by occasion and category
+                const groupedMenu = menuData.reduce((acc, item) => {
+                    if (!acc[item.occasion]) acc[item.occasion] = {};
+                    if (!acc[item.occasion][item.category]) acc[item.occasion][item.category] = [];
+                    acc[item.occasion][item.category].push(item);
+                    return acc;
+                }, {});
+
+                // Generate HTML table
+                let tableHTML = '<table class="menu-table"><thead><tr><th>Item</th><th>Description</th><th>Price</th></tr></thead><tbody>';
+
+                Object.entries(groupedMenu).forEach(([occasion, categories]) => {
+                    tableHTML += `<tr class="occasion-header"><td colspan="3">${occasion}</td></tr>`;
+                    Object.entries(categories).forEach(([category, items]) => {
+                        items.forEach(item => {
+                            tableHTML += `
+                                <tr>
+                                    <td>${item.item}</td>
+                                    <td>${item.description}</td>
+                                    <td>$${item.totalPrice.toFixed(2)}</td>
+                                </tr>
+                            `;
+                        });
+                    });
+                });
+
+                tableHTML += '</tbody></table>';
+                document.getElementById('menu-table').innerHTML = tableHTML;
+
+            } catch (error) {
+                console.error("Error loading menu:", error);
+                // Fallback to simple table if API fails
+                document.getElementById('menu-table').innerHTML = `
+                    <table class="menu-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chocolate Cake (6-inch)</td>
+                                <td>Rich chocolate cake with buttercream frosting</td>
+                                <td>$47.50</td>
+                            </tr>
+                            <tr>
+                                <td>Vanilla Fruit Cake (8-inch)</td>
+                                <td>Classic vanilla with seasonal fruit</td>
+                                <td>$80.00</td>
+                            </tr>
+                            <tr>
+                                <td>Chocolate Chip Cookies (12)</td>
+                                <td>Classic cookies</td>
+                                <td>$18.75</td>
+                            </tr>
+                            <tr>
+                                <td>Blueberry Muffins (6)</td>
+                                <td>Fresh blueberry muffins</td>
+                                <td>$16.75</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
+            }
+        }
+
+        // Simple image carousel
+        let currentSlide = 0;
+        const slides = [
+            "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+            "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80",
+            "https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1072&q=80"
+        ];
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide >= slides.length) currentSlide = 0;
+            if (currentSlide < 0) currentSlide = slides.length - 1;
+
+            const carouselInner = document.querySelector('.carousel-inner');
+            carouselInner.innerHTML = `
+                <div class="carousel-item active">
+                    <img src="${slides[currentSlide]}" alt="Dessert photo">
+                </div>
+            `;
+
+            updateIndicators();
+        }
+
+        function updateIndicators() {
+            const indicatorsContainer = document.getElementById('carousel-indicators');
+            indicatorsContainer.innerHTML = '';
+
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = `indicator ${index === currentSlide ? 'active' : ''}`;
+                indicator.onclick = () => {
+                    currentSlide = index;
+                    changeSlide(0);
+                };
+                indicatorsContainer.appendChild(indicator);
+            });
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMenuData();
+        });
+    </script>
+</body>
+</html>
