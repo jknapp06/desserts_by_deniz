@@ -42,7 +42,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-a0f9fd0d421825b736dc1bbcbcba2219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d390f6b1bb233dafbd59a397b5af9ca7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -123,16 +123,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#order-custom-desserts" id="toc-order-custom-desserts" class="nav-link active" data-scroll-target="#order-custom-desserts">Order Custom Desserts</a>
+  <li><a href="#desserts-by-deniz" id="toc-desserts-by-deniz" class="nav-link active" data-scroll-target="#desserts-by-deniz">Desserts by Deniz</a>
   <ul class="collapse">
-  <li><a href="#step-1-choose-an-occasion" id="toc-step-1-choose-an-occasion" class="nav-link" data-scroll-target="#step-1-choose-an-occasion">Step 1: Choose an Occasion</a></li>
-  <li><a href="#step-2-select-your-item" id="toc-step-2-select-your-item" class="nav-link" data-scroll-target="#step-2-select-your-item">Step 2: Select Your Item</a></li>
-  <li><a href="#step-3-customize-your-order" id="toc-step-3-customize-your-order" class="nav-link" data-scroll-target="#step-3-customize-your-order">Step 3: Customize Your Order</a></li>
-  <li><a href="#order-summary" id="toc-order-summary" class="nav-link" data-scroll-target="#order-summary">Order Summary</a></li>
-  <li><a href="#your-information" id="toc-your-information" class="nav-link" data-scroll-target="#your-information">Your Information</a>
-  <ul class="collapse">
-  <li><a href="#javascript-for-dynamic-pricing" id="toc-javascript-for-dynamic-pricing" class="nav-link" data-scroll-target="#javascript-for-dynamic-pricing"><strong>JavaScript for Dynamic Pricing</strong></a></li>
-  </ul></li>
+  <li><a href="#our-menu" id="toc-our-menu" class="nav-link" data-scroll-target="#our-menu">Our Menu</a></li>
+  <li><a href="#photo-gallery" id="toc-photo-gallery" class="nav-link" data-scroll-target="#photo-gallery">Photo Gallery</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -159,9 +153,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="order-custom-desserts" class="level1">
-<h1>Order Custom Desserts</h1>
-<p>Welcome to <em>Desserts by Deniz</em>! Fill out the form below to place an order. Deniz will review and respond to confirm availability.</p>
+<section id="desserts-by-deniz" class="level1">
+<h1>Desserts by Deniz</h1>
+<p>Welcome to <em>Desserts by Deniz</em>! Browse our selection of custom baked goods below.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -175,97 +169,179 @@ Note
 <p><strong>Note:</strong> All orders are subject to Deniz’s availability. Prices are estimates and may vary based on custom requests.</p>
 </div>
 </div>
-<section id="step-1-choose-an-occasion" class="level2">
-<h2 class="anchored" data-anchor-id="step-1-choose-an-occasion">Step 1: Choose an Occasion</h2>
-<p><select id="occasion" onchange="updateCategories()"> <option value="">– Select –</option> <option value="Celebration">Celebration (Cakes, Cupcakes)</option> <option value="SomethingToBring">I need something to bring (Cookies, Treats)</option> <option value="JustBecause">Just Because (Muffins, Scones)</option> </select></p>
-</section>
-<section id="step-2-select-your-item" class="level2">
-<h2 class="anchored" data-anchor-id="step-2-select-your-item">Step 2: Select Your Item</h2>
-<div id="category-container">
-<p><select id="category" onchange="updateItems()" disabled=""> <option value="">– Select Occasion First –</option> </select></p>
+<section id="our-menu" class="level2">
+<h2 class="anchored" data-anchor-id="our-menu">Our Menu</h2>
+<div id="menu-table">
+<p><!-- Menu will be loaded here from Google Sheets --></p>
 </div>
 </section>
-<section id="step-3-customize-your-order" class="level2">
-<h2 class="anchored" data-anchor-id="step-3-customize-your-order">Step 3: Customize Your Order</h2>
-<div id="item-container">
-<p><select id="item" onchange="updateDetails()" disabled=""> <option value="">– Select Category First –</option> </select></p>
+<section id="photo-gallery" class="level2">
+<h2 class="anchored" data-anchor-id="photo-gallery">Photo Gallery</h2>
+<div class="carousel">
+<!-- Carousel images will be loaded here -->
+<div class="carousel-inner">
+<pre><code>&lt;div class="carousel-item active"&gt;
+  &lt;img src="https://via.placeholder.com/800x400?text=Loading+Photos..." alt="Dessert photo"&gt;
+&lt;/div&gt;</code></pre>
 </div>
-<div id="details-container">
-
+<p><button class="carousel-control prev" onclick="changeSlide(-1)">❮</button> <button class="carousel-control next" onclick="changeSlide(1)">❯</button></p>
 </div>
-</section>
-<section id="order-summary" class="level2">
-<h2 class="anchored" data-anchor-id="order-summary">Order Summary</h2>
-<div id="order-summary">
-<p>
-Total: <strong>$<span id="total-price">0.00</span></strong>
-</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Ready to order?</strong> Contact Deniz directly to place your custom order!</p>
+</div>
+</div>
+';
+    document.getElementById('menu-table').innerHTML = tableHTML;
+
+  } catch (error) {
+    console.error("Error loading menu:", error);
+    // Fallback to simple table if API fails
+    document.getElementById('menu-table').innerHTML = `
+      
+<table class="menu-table caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Item</th>
+<th data-quarto-table-cell-role="th">Description</th>
+<th data-quarto-table-cell-role="th">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Chocolate Cake (6-inch)</td>
+<td>Rich chocolate cake with buttercream frosting</td>
+<td>$47.50</td>
+</tr>
+<tr class="even">
+<td>Vanilla Fruit Cake (8-inch)</td>
+<td>Classic vanilla with seasonal fruit</td>
+<td>$80.00</td>
+</tr>
+<tr class="odd">
+<td>Chocolate Chip Cookies (12)</td>
+<td>Classic cookies</td>
+<td>$18.75</td>
+</tr>
+<tr class="even">
+<td>Blueberry Muffins (6)</td>
+<td>Fresh blueberry muffins</td>
+<td>$16.75</td>
+</tr>
+</tbody>
+</table>
+
+    `;
+  }
+}
+
+// Simple image carousel
+let currentSlide = 0;
+const slides = [
+  "https://via.placeholder.com/800x400?text=Chocolate+Cake",
+  "https://via.placeholder.com/800x400?text=Cookies",
+  "https://via.placeholder.com/800x400?text=Muffins"
+];
+
+function changeSlide(direction) {
+  currentSlide += direction;
+  if (currentSlide &gt;= slides.length) currentSlide = 0;
+  if (currentSlide &lt; 0) currentSlide = slides.length - 1;
+
+  const carouselInner = document.querySelector('.carousel-inner');
+  carouselInner.innerHTML = `
+    <div class="carousel-item active">
+      <img src="${slides[currentSlide]}" alt="Dessert photo">
+    </div>
+  `;
+}
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', () =&gt; {
+  loadMenuData();
+});
+
+<style>
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.menu-table th, .menu-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.menu-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.occasion-header td {
+  background-color: #e9ecef;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  position: relative;
+}
+
+.carousel-item {
+  display: none;
+  width: 100%;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  z-index: 10;
+}
+
+.carousel-control.prev {
+  left: 0;
+}
+
+.carousel-control.next {
+  right: 0;
+}
+</style>
+
+
 </section>
-<section id="your-information" class="level2">
-<h2 class="anchored" data-anchor-id="your-information">Your Information</h2>
-<form id="order-form" action="https://formsubmit.co/YOUR_EMAIL" method="POST">
-<p><input type="hidden" name="_subject" value="New Order from Desserts by Deniz"> <input type="hidden" name="_captcha" value="false"> <input type="hidden" name="_next" value="https://your-site.com/thanks.html"></p>
-<p><label>Name: <input type="text" name="name" required=""> </label></p>
-<p><label>Email: <input type="email" name="email" required=""> </label></p>
-<p><label>Phone: <input type="tel" name="phone"> </label></p>
-<label>Special Instructions:
-<textarea name="message" placeholder="e.g., 'Gluten-free', 'Extra strawberries'"></textarea>
-<p></p>
-<button type="submit">
-Submit Order
-</button>
-
-<hr>
-<section id="javascript-for-dynamic-pricing" class="level3">
-<h3 class="anchored" data-anchor-id="javascript-for-dynamic-pricing"><strong>JavaScript for Dynamic Pricing</strong></h3>
-<p>Add this to a new file <code>assets/script.js</code> (or in a <code>&lt;script&gt;</code> tag in <code>index.qmd</code>):</p>
-<p>``<code>javascript fetch(</code>https://docs.google.com/spreadsheets/d/10Lz86fUeqTrgBTdrjOa02zzM96G6_KhUVhZBbnuu940<code>)   .then(response =&gt; response.json())   .then(data =&gt; {     // Parse data into the</code>menu` object });</p>
-<p>// Update categories based on occasion function updateCategories() { const occasion = document.getElementById(“occasion”).value; const categorySelect = document.getElementById(“category”); categorySelect.innerHTML = ‘<option value="">– Select Category –</option>’; categorySelect.disabled = !occasion;</p>
-<p>if (occasion) { Object.keys(menu[occasion]).forEach(category =&gt; { const option = document.createElement(“option”); option.value = category; option.textContent = category; categorySelect.appendChild(option); }); } }</p>
-<p>// Update items based on category function updateItems() { const occasion = document.getElementById(“occasion”).value; const category = document.getElementById(“category”).value; const itemSelect = document.getElementById(“item”); itemSelect.innerHTML = ‘<option value="">– Select Item –</option>’; itemSelect.disabled = !category;</p>
-<p>if (category) { menu[occasion][category].forEach(item =&gt; { const option = document.createElement(“option”); option.value = item.name; option.textContent = <code>${item.name} ($${item.total.toFixed(2)})</code>; itemSelect.appendChild(option); }); } }</p>
-<p>// Update details (size, flavors, etc.) and calculate total function updateDetails() { const occasion = document.getElementById(“occasion”).value; const category = document.getElementById(“category”).value; const itemName = document.getElementById(“item”).value; const detailsContainer = document.getElementById(“details-container”); const orderSummary = document.getElementById(“order-summary”);</p>
-if (!itemName) { detailsContainer.innerHTML = ““; orderSummary.innerHTML = ’
-<p>
-Total: <strong>$0.00</strong>
-</p>
-<p>’; return; }</p>
-// Find the selected item const item = menu[occasion][category].find(i =&gt; i.name === itemName); detailsContainer.innerHTML = `
-<h4 class="anchored">
-${itemName}
-</h4>
-<pre><code>&lt;p&gt;\${item.description || "Customize your order below:"}&lt;/p&gt;
-
-&lt;!-- Size dropdown (example) --&gt;
-&lt;label&gt;Size:
-  &lt;select id="size"&gt;
-    &lt;option value="Standard"&gt;Standard&lt;/option&gt;
-    &lt;option value="Large"&gt;Large (+\$10)&lt;/option&gt;
-  &lt;/select&gt;
-&lt;/label&gt;
-
-&lt;!-- Buttercream flavor (example) --&gt;
-&lt;label&gt;Buttercream Flavor:
-  &lt;select id="buttercream"&gt;
-    &lt;option value="Vanilla"&gt;Vanilla&lt;/option&gt;
-    &lt;option value="Chocolate"&gt;Chocolate&lt;/option&gt;
-    &lt;option value="Strawberry"&gt;Strawberry&lt;/option&gt;
-  &lt;/select&gt;
-&lt;/label&gt;
-
-&lt;!-- Message field --&gt;
-&lt;label&gt;Custom Message:
-  &lt;input type="text" id="message" placeholder="e.g., 'Happy Birthday!'"&gt;
-&lt;/label&gt;</code></pre>
-<p>`;</p>
-<p>// Calculate total price (base + adjustments) const basePrice = item.total; let totalPrice = basePrice;</p>
-<p>// Example: Add $10 for “Large” size document.getElementById(“size”).addEventListener(“change”, (e) =&gt; { totalPrice = e.target.value === “Large” ? basePrice + 10 : basePrice; document.getElementById(“total-price”).textContent = totalPrice.toFixed(2); });</p>
-<p>// Update total price display document.getElementById(“total-price”).textContent = totalPrice.toFixed(2); }</p>
-
-
-</section>
-</label></form></section>
 </section>
 
 </main> <!-- /main -->

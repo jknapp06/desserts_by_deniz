@@ -1,34 +1,248 @@
-// Update categories based on occasion
-function updateCategories() {
-  const occasion = document.getElementById("occasion").value;
-  const categorySelect = document.getElementById("category");
-  categorySelect.innerHTML = '<option value="">-- Select Category --</option>';
-  categorySelect.disabled = !occasion;
+---
+title: "Desserts by Deniz"
+format:
+  html:
+    theme: journal
+    css: assets/styles.css
+---
 
-  if (occasion && menu[occasion]) {
-    Object.keys(menu[occasion]).forEach(category => {
-      const option = document.createElement("option");
-      option.value = category;
-      option.textContent = category;
-      categorySelect.appendChild(option);
+# Desserts by Deniz
+
+Welcome to *Desserts by Deniz*! Browse our selection of custom baked goods below.
+
+::: {.callout-note}
+**Note:** All orders are subject to Deniz's availability. Prices are estimates and may vary based on custom requests.
+:::
+
+## Our Menu
+
+<div id="menu-table">
+  <!-- Menu will be loaded here from Google Sheets -->
+</div>
+
+## Photo Gallery
+
+<div class="carousel">
+  <!-- Carousel images will be loaded here -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://via.placeholder.com/800x400?text=Loading+Photos..." alt="Dessert photo">
+    </div>
+  </div>
+  <button class="carousel-control prev" onclick="changeSlide(-1)">❮</button>
+  <button class="carousel-control next" onclick="changeSlide(1)">❯</button>
+</div>
+
+::: {.callout-tip}
+**Ready to order?** Contact Deniz directly to place your custom order!
+:::
+
+<script>
+// Load menu data from Google Sheets
+async function loadMenuData() {
+  try {
+    const sheetId = "10Lz86fUeqTrgBTdrjOa02zzM96G6_KhUVhZBbnuu940";
+    const apiKey = "YOUR_API_KEY"; // Replace with your actual API key
+
+    const response = await fetch(
+      `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`
+    );
+
+    if (!response.ok) throw new Error("Failed to fetch sheet data");
+
+    const data = await response.json();
+    const rows = data.values;
+
+    // Skip header row
+    const menuData = rows.slice(1).map(row => {
+      const [
+        occasion,
+        category,
+        item,
+        description,
+        size,
+        baseCost,
+        laborHours,
+        hourlyRate,
+        totalPrice,
+        notes
+      ] = row;
+
+      return {
+        occasion,
+        category,
+        item: `${item} (${size})`,
+        description,
+        baseCost: parseFloat(baseCost),
+        laborHours: parseFloat(laborHours),
+        hourlyRate: parseFloat(hourlyRate),
+        totalPrice: parseFloat(totalPrice),
+        notes
+      };
     });
+
+    // Group by occasion and category
+    const groupedMenu = menuData.reduce((acc, item) => {
+      if (!acc[item.occasion]) acc[item.occasion] = {};
+      if (!acc[item.occasion][item.category]) acc[item.occasion][item.category] = [];
+      acc[item.occasion][item.category].push(item);
+      return acc;
+    }, {});
+
+    // Generate HTML table
+    let tableHTML = '<table class="menu-table"><thead><tr><th>Item</th><th>Description</th><th>Price</th></tr></thead><tbody>';
+
+    Object.entries(groupedMenu).forEach(([occasion, categories]) => {
+      tableHTML += `<tr class="occasion-header"><td colspan="3">${occasion}</td></tr>`;
+      Object.entries(categories).forEach(([category, items]) => {
+        items.forEach(item => {
+          tableHTML += `
+            <tr>
+              <td>${item.item}</td>
+              <td>${item.description}</td>
+              <td>$${item.totalPrice.toFixed(2)}</td>
+            </tr>
+          `;
+        });
+      });
+    });
+
+    tableHTML += '</tbody></table>';
+    document.getElementById('menu-table').innerHTML = tableHTML;
+
+  } catch (error) {
+    console.error("Error loading menu:", error);
+    // Fallback to simple table if API fails
+    document.getElementById('menu-table').innerHTML = `
+      <table class="menu-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Chocolate Cake (6-inch)</td>
+            <td>Rich chocolate cake with buttercream frosting</td>
+            <td>$47.50</td>
+          </tr>
+          <tr>
+            <td>Vanilla Fruit Cake (8-inch)</td>
+            <td>Classic vanilla with seasonal fruit</td>
+            <td>$80.00</td>
+          </tr>
+          <tr>
+            <td>Chocolate Chip Cookies (12)</td>
+            <td>Classic cookies</td>
+            <td>$18.75</td>
+          </tr>
+          <tr>
+            <td>Blueberry Muffins (6)</td>
+            <td>Fresh blueberry muffins</td>
+            <td>$16.75</td>
+          </tr>
+        </tbody>
+      </table>
+    `;
   }
 }
 
-// Update items based on category
-function updateItems() {
-  const occasion = document.getElementById("occasion").value;
-  const category = document.getElementById("category").value;
-  const itemSelect = document.getElementById("item");
-  itemSelect.innerHTML = '<option value="">-- Select Item --</option>';
-  itemSelect.disabled = !category;
+// Simple image carousel
+let currentSlide = 0;
+const slides = [
+  "https://via.placeholder.com/800x400?text=Chocolate+Cake",
+  "https://via.placeholder.com/800x400?text=Cookies",
+  "https://via.placeholder.com/800x400?text=Muffins"
+];
 
-  if (category && menu[occasion]?.[category]) {
-    menu[occasion][category].forEach(item => {
-      const option = document.createElement("option");
-      option.value = item.name;
-      option.textContent = `${item.name} ($${item.total.toFixed(2)})`;
-      itemSelect.appendChild(option);
-    });
-  }
+function changeSlide(direction) {
+  currentSlide += direction;
+  if (currentSlide >= slides.length) currentSlide = 0;
+  if (currentSlide < 0) currentSlide = slides.length - 1;
+
+  const carouselInner = document.querySelector('.carousel-inner');
+  carouselInner.innerHTML = `
+    <div class="carousel-item active">
+      <img src="${slides[currentSlide]}" alt="Dessert photo">
+    </div>
+  `;
 }
+
+// Initialize when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  loadMenuData();
+});
+</script>
+
+<style>
+.menu-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.menu-table th, .menu-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.menu-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.occasion-header td {
+  background-color: #e9ecef;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.carousel {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  position: relative;
+}
+
+.carousel-item {
+  display: none;
+  width: 100%;
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  z-index: 10;
+}
+
+.carousel-control.prev {
+  left: 0;
+}
+
+.carousel-control.next {
+  right: 0;
+}
+</style>
