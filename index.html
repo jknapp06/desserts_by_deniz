@@ -406,31 +406,27 @@
         document.getElementById('about-section').style.backgroundImage = `url('${randomImg}')`;
     }
 
-    async function loadMenu() {
-        try {
-            const response = await fetch('/.netlify/functions/sheets');
-            const data = await response.json();
-            
-            // Transform Google Sheets data into HTML
-            // Columns: Category(0), Item(1), Description(2), Size(3), Base Cost(4), Labor(5), Hourly Rate(6), Total Price(7), Notes(8)
-            const rows = data.values.slice(1); // Skip header row
-            const html = rows.map(row => `
-            <tr>
-                <td>${row[0]}</td>
-                <td>${row[1]}</td>
-                <td>${row[2]}</td>
-                <td>${row[3]}</td>
-                <td>$${parseFloat(row[7]).toFixed(2)}</td>
-            </tr>
-            `).join('');
-            
-            document.getElementById('menu-table').innerHTML = 
-              `<table class="menu-table"><thead><tr><th>Category</th><th>Item</th><th>Description</th><th>Size</th><th>Price</th></tr></thead><tbody>${html}</tbody></table>`;
+function loadMenu() {
+  fetch('/.netlify/functions/sheets')
+    .then(response => response.json())
+    .then(data => {
+      const rows = data.values.slice(1); // Skip header
+      const menuHTML = rows
+        .filter(row => row.length >= 8) // Only rows with all columns
+        .map(row => `
+          <tr>
+            <td>${row[0]}</td>
+            <td>${row[1]}</td>
+            <td>${row[2]}</td>
+            <td>${row[3]}</td>
+            <td>$${parseFloat(row[7]).toFixed(2)}</td>
+          </tr>
+        `)
+        .join('');
+      document.querySelector('tbody').innerHTML = menuHTML;
+    });
+}
 
-        } catch (error) {
-            document.getElementById('menu-table').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
-        }
-    }
 
     document.addEventListener('DOMContentLoaded', () => {
         loadMenu();
