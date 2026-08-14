@@ -45,6 +45,7 @@
             text-align: center;
             min-height: 100vh;
             justify-content: center;
+            position: relative;
         }
 
         header {
@@ -65,6 +66,29 @@
             color: var(--heading-color);
             font-size: 1.5rem;
             margin-top: 10px;
+        }
+
+        .floating-image {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        animation: float 3s ease-in-out forwards;
+        pointer-events: none;
+        }
+
+        @keyframes float {
+        0% {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
         }
 
         /* ===== MENU SECTION ===== */
@@ -337,6 +361,9 @@
         <header>
             <h1>Desserts by Deniz</h1>
             <p class="tagline">Tasty treats made in the East Bay</p>
+            <div class="floating-image" style="left: 10%; top: 65%;"></div>
+            <div class="floating-image" style="left: 80%; top: 15%;"></div>
+
         </header>
     </section>
 
@@ -406,29 +433,46 @@
         document.getElementById('about-section').style.backgroundImage = `url('${randomImg}')`;
     }
 
-function loadMenu() {
-  fetch('/.netlify/functions/sheets')
-    .then(response => response.json())
-    .then(data => {
-      const rows = data.values.slice(1); // Skip header
-      const menuHTML = rows
-        .filter(row => row.length >= 8) // Only rows with all columns
-        .map(row => `
-          <tr>
-            <td>${row[0]}</td>
-            <td>${row[1]}</td>
-            <td>${row[2]}</td>
-            <td>${row[3]}</td>
-            <td>$${parseFloat(row[7]).toFixed(2)}</td>
-          </tr>
-        `)
-        .join('');
-      document.querySelector('tbody').innerHTML = menuHTML;
-    });
+    function loadMenu() {
+    fetch('/.netlify/functions/sheets')
+        .then(response => response.json())
+        .then(data => {
+        const rows = data.values.slice(1); // Skip header
+        const menuHTML = rows
+            .filter(row => row.length >= 8) // Only rows with all columns
+            .map(row => `
+            <tr>
+                <td>${row[0]}</td>
+                <td>${row[1]}</td>
+                <td>${row[2]}</td>
+                <td>${row[3]}</td>
+                <td>$${parseFloat(row[7]).toFixed(2)}</td>
+            </tr>
+            `)
+            .join('');
+        document.querySelector('tbody').innerHTML = menuHTML;
+        });
+    }
+
+    function setFloatingImages() {
+  const backgroundImages = [
+    'url(images/dessert1.JPG)',
+    'url(images/dessert2.JPG)',
+    'url(images/dessert3.JPG)',
+    'url(images/dessert4.JPG)',
+    'url(images/dessert5.JPG)',
+    'url(images/dessert6.JPG)',
+  ];
+  
+  const floatingImages = document.querySelectorAll('.floating-image');
+  floatingImages.forEach(img => {
+    const randomBg = backgroundImages[Math.floor(Math.random() * backgroundImages.length)];
+    img.style.backgroundImage = randomBg;
+  });
 }
 
-
     document.addEventListener('DOMContentLoaded', () => {
+        setFloatingImages();
         loadMenu();
         setRandomBackgrounds();
     });
