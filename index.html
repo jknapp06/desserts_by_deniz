@@ -439,14 +439,13 @@
         .then(data => {
         const rows = data.values.slice(1); // Skip header
         const menuHTML = rows
-            .filter(row => row.length >= 8) // Only rows with all columns
             .map(row => `
             <tr>
                 <td>${row[0]}</td>
                 <td>${row[1]}</td>
                 <td>${row[2]}</td>
                 <td>${row[3]}</td>
-                <td>$${parseFloat(row[7]).toFixed(2)}</td>
+                <td>$${row[7] && !isNaN(parseFloat(row[7])) ? parseFloat(row[7]).toFixed(2) : 'N/A'}</td>
             </tr>
             `)
             .join('');
