@@ -373,9 +373,22 @@
             <h2 class="section-title">Our Menu</h2>
             <div class="menu-section">
                 <h2>Available Desserts</h2>
-                <div id="menu-table">
-                    <p style="text-align: center; color: var(--heading-color);">Loading menu...</p>
-                </div>
+<div id="menu-table">
+    <table class="menu-table">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Occasion</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="5" style="text-align:center; color: var(--heading-color);">Loading menu...</td></tr>
+        </tbody>
+    </table>
+</div>
             </div>
         </div>
     </section>
@@ -434,23 +447,32 @@
     }
 
     function loadMenu() {
-    fetch('/.netlify/functions/sheets')
-        .then(response => response.json())
-        .then(data => {
-        const rows = data.values.slice(1); // Skip header
-        const menuHTML = rows
-            .map(row => `
-            <tr>
-                <td>${row[0]}</td>
-                <td>${row[1]}</td>
-                <td>${row[2]}</td>
-                <td>${row[3]}</td>
-                <td>$${row[7] && !isNaN(parseFloat(row[7])) ? parseFloat(row[7]).toFixed(2) : 'N/A'}</td>
-            </tr>
-            `)
-            .join('');
-        document.querySelector('tbody').innerHTML = menuHTML;
-        });
+        fetch('/.netlify/functions/sheets')
+            .then(response => response.json())
+            .then(data => {
+                const rows = data.values.slice(1); // Skip header
+                const menuHTML = rows
+                    .map(row => {
+                        const rawPrice = row[7] ? String(row[7]).replace(/[^0-9.-]+/g, '') : '';
+                        const price = parseFloat(rawPrice);
+                        return `
+                        <tr>
+                            <td>${row[0] || ''}</td>
+                            <td>${row[1] || ''}</td>
+                            <td>${row[2] || ''}</td>
+                            <td>${row[3] || ''}</td>
+                            <td>${!isNaN(price) ? '$' + price.toFixed(2) : 'N/A'}</td>
+                        </tr>
+                        `;
+                    })
+                    .join('');
+                document.querySelector('#menu-table tbody').innerHTML = menuHTML;
+            })
+            .catch(error => {
+                console.error('Error loading menu:', error);
+                document.querySelector('#menu-table').innerHTML =
+                    `<p style="text-align: center; color: var(--heading-color);">Couldn't load the menu right now. Please try again later.</p>`;
+            });
     }
 
     function setFloatingImages() {
