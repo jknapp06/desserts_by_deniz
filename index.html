@@ -386,7 +386,7 @@
     <script>
     async function loadMenu() {
     try {
-        const response = await fetch('/.netlify/functions/sheets.js');
+        const response = await fetch('/.netlify/functions/sheets');
         const data = await response.json();
         
         // Transform Google Sheets data into HTML
