@@ -357,9 +357,9 @@
     <section id="ordering-section">
         <div class="ordering-content">
             <h2>Ready to Order?</h2>
-            <p>Message Deniz directly on Instagram to place your custom order. Whether it's a birthday cake, wedding desserts, or just a sweet treat, she'll bring your dessert dreams to life!</p>
-            <a href="https://www.instagram.com/d.knizzle/" class="contact-btn" target="_blank">💬 DM on Instagram</a>
-            <a href="https://www.instagram.com/d.knizzle/" class="instagram-link" target="_blank">@d.knizzle</a>
+            <p>Message Deniz directly on Instagram to place your custom order. Your kid's birthday cake, cookies for your friends, or a sweet treat just for yourself, let Deniz know what you're thinking!</p>
+            <a href="https://www.instagram.com/dessertsbydeniz" class="contact-btn" target="_blank">💬 DM on Instagram</a>
+            <a href="https://www.instagram.com/dessertsbydeniz" class="instagram-link" target="_blank">@dessertsbydeniz</a>
         </div>
     </section>
 
@@ -384,64 +384,30 @@
     </footer>
 
     <script>
-        // Load menu data from Google Sheets
-        async function loadMenuData() {
-            try {
-                const response = await fetch('/.netlify/functions/sheets');
-                const data = await response.json();
+    async function loadMenu() {
+    try {
+        const response = await fetch('/.netlify/functions/sheets.js');
+        const data = await response.json();
+        
+        // Transform Google Sheets data into HTML
+        const rows = data.values.slice(1); // Skip header row
+        const html = rows.map(row => `
+        <tr>
+            <td>${row[0]}</td>
+            <td>${row[1]}</td>
+            <td>${row[2]}</td>
+            <td>${row[3]}</td>
+        </tr>
+        `).join('');
+        
+document.getElementById('menu-table').innerHTML = 
+  `<table class="menu-table"><thead><tr><th>Item</th><th>Category</th><th>Description</th><th>Price</th></tr></thead><tbody>${html}</tbody></table>`;
 
-                if (!response.ok) throw new Error("Failed to fetch sheet data");
+    } catch (error) {
+        document.getElementById('menu-table').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+    }
+    }
 
-                const rows = data.values;
-                const menuData = rows.slice(1).map(row => {
-                    const [
-                        occasion,
-                        category,
-                        item,
-                        description,
-                        size,
-                        baseCost,
-                        laborHours,
-                        hourlyRate,
-                        totalPrice,
-                        notes
-                    ] = row;
-
-                    return {
-                        occasion,
-                        category,
-                        item: `${item} (${size})`,
-                        description,
-                        baseCost: parseFloat(baseCost),
-                        laborHours: parseFloat(laborHours),
-                        hourlyRate: parseFloat(hourlyRate),
-                        totalPrice: parseFloat(totalPrice),
-                        notes
-                    };
-                });
-
-                const groupedMenu = menuData.reduce((acc, item) => {
-                    if (!acc[item.occasion]) acc[item.occasion] = {};
-                    if (!acc[item.occasion][item.category]) acc[item.occasion][item.category] = [];
-                    acc[item.occasion][item.category].push(item);
-                    return acc;
-                }, {});
-
-                let tableHTML = '<table class="menu-table"><thead><tr><th>Item</th><th>Description</th><th>Price</th></tr></thead><tbody>';
-
-                Object.entries(groupedMenu).forEach(([occasion, categories]) => {
-                    tableHTML += `<tr class="occasion-header"><td colspan="3">${occasion}</td></tr>`;
-                    Object.entries(categories).forEach(([category, items]) => {
-                        items.forEach(item => {
-                            tableHTML += `
-                                <tr>
-                                    <td>${item.item}</td>
-                                    <td>${item.description}</td>
-                                    <td>$${item.totalPrice.toFixed(2)}</td>
-                                </tr>
-                            `;
-                        });
-                    });
-                });
-
-                tableHTML
+    document.addEventListener('DOMContentLoaded', loadMenu);
+    </script>
+</body>
